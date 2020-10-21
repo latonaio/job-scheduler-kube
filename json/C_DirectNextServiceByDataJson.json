@@ -1,0 +1,39 @@
+{
+    "connections": {
+        "default": {
+            "outputDataPath": "/var/lib/aion/Data/direct-next-service-by-data-json_1",
+            "metadata": {
+                "schedule_list": [
+                    {
+                        "project_id": 1,
+                        "microservice_id": 1,
+                        "job_id": 1,
+                        "job_name": "teiki backup",
+                        "schedules": [{
+                            "start_at": "2020-06-10 14:30:50",
+                            "stop_at": "2020-07-10 04:50:00",
+                            "repeat_type": 0
+                        },{
+                            "start_at": "2020-08-10 14:30:50",
+                            "stop_at": "2020-09-10 04:50:00",
+                            "repeat_type": 0
+                        }],
+                        "equipment_list": [1, 2]
+                    },
+                    {
+                        "project_id": 1,
+                        "microservice_id": 2,
+                        "job_id": 2,
+                        "job_name": "teiki backup",
+                        "schedules": [{
+                            "start_at": "2020-06-10 14:30:50",
+                            "stop_at": "2020-07-10 04:50:00",
+                            "repeat_type": 1
+                        }],
+                        "equipment_list": [1, 2]
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,60 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: not-exist
+spec:
+  schedule: "0 0 1 1 *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: not-exist
+            image: not-exist:latest
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: MS_NUMBER
+              value: "1"
+            - name: IS_DOCKER
+              value: "true"
+            - name: AION_HOME
+              value: /var/lib/aion
+            - name: DEVICE_NAME
+            volumeMounts:
+            - mountPath: /var/lib/aion/Data
+              name: data
+            - mountPath: /root/.nv
+              name: nv
+          - name: envoy
+            image: envoy:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - /usr/local/bin/envoy
+            args:
+            - --config-path
+            - /etc/envoy/envoy.yaml
+            ports:
+            - containerPort: 10001
+              name: envoy-admin
+              protocol: TCP
+            resources:
+              limits:
+                memory: 512Mi
+            volumeMounts:
+            - mountPath: /etc/envoy
+              name: envoy
+          restartPolicy: OnFailure
+          volumes:
+          - hostPath:
+              path: /var/lib/aion/default/Data
+              type: ""
+            name: data
+          - hostPath:
+              path: /root/.nv
+              type: ""
+            name: nv
+          - configMap:
+              defaultMode: 420
+              name: not-exist
+            name: envoy
+

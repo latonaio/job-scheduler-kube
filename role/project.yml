@@ -1,0 +1,12 @@
+microservices:
+  direct-next-service:
+    command: python3 -m directnext
+    startup: yes
+    always: yes
+    nextService:
+      default:
+      - name: job-scheduler
+  job-scheduler:
+    command: python3 -m job_scheduler
+    scale: 3
+    serviceAccount: deployable-microservice
